@@ -1,0 +1,50 @@
+<div>
+    <h2>All Orders</h2>
+    
+    <table>
+        <tr>
+            <th>Oid</th>
+            <th>ODate</th>
+            <th>OStatus</th>
+            <!-- <th>Products</th> -->
+            <th>totalitems</th>
+            <th>itemssubtotal</th>
+            <th>shipmentcharges</th>
+            <th>totalamount</th>
+            <th>paymentstatus</th>
+            <th>paymentmethodtitle</th>
+        </tr>
+
+        <tr *ngFor="let order of orders">
+            console.log({{order.id}});
+            alert("in table");
+            <td>{{order.id}}</td>
+            <td>{{order.orderDate}}</td>
+            <td>{{order.orderStatus}}</td>
+            <!-- <td>
+                <table>
+                    <tr>
+                        <th>PId</th>
+                        <th>PTitle</th>
+                        <th>PImage</th>
+                        <th>brand</th>
+                        <th>pDesc</th>
+                        <th>pCategory</th>
+                        <th>price</th>
+                        <th>qty</th>
+                        <th>totalPrice</th>
+                    </tr>
+                    <tr>
+
+                    </tr>
+                </table>
+            </td> -->
+            <td>{{order.totalItems}}</td>
+            <td>{{order.itemsSubTotal}}</td>
+            <td>{{order.shipmentCharges}}</td>
+            <td>{{order.totalAmount}}</td>
+            <td>{{order.paymentStatus}}</td>
+            <td>{{order.paymentMethodTitle}}</td>
+        </tr>
+    </table>
+</div>

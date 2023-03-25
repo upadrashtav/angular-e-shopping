@@ -1,0 +1,17 @@
+<div>
+    <h2>Welcome To E Store Application</h2>
+    <div>
+        <div *ngIf="!flag;else temp;">
+            <a routerLink="aboutus"> About Us | </a>
+            <a routerLink="contactus"> Contact Us | </a>
+            <a routerLink="login">Log In | </a>
+        </div>
+        <ng-template #temp>
+            <a routerLink="/home/product">All Products | </a>
+            <a routerLink="/home/users">All Users | </a>
+            <a routerLink="/home/orders">All Orders | </a>
+            <a routerLink="/home/logout">Log Out </a>
+        </ng-template>
+    </div>
+        <router-outlet></router-outlet>
+</div>

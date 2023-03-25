@@ -1,0 +1,36 @@
+<div>
+    <h2>All Users</h2>
+    <table>
+        <tr>
+            <th>UId</th>
+            <th>UName</th>
+            <th>FullName</th>
+            <th>street</th>
+            <th>city</th>
+            <th>state</th>
+            <th>country</th>
+            <th>pincode</th>
+            <th>mailid</th>
+            <th>password</th>
+            <th>image</th>
+            <th>contact</th>
+            <td>Delete User</td>
+        </tr>
+        <tr *ngFor="let user of users">
+            <td>{{user.id}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.fullName}}</td>
+            <td>{{user.street}}</td>
+            <td>{{user.city}}</td>
+            <td>{{user.state}}</td>    
+            <td>{{user.country}}</td> 
+            <td>{{user.pincode}}</td> 
+            <td>{{user.emailid}}</td> 
+            <td>{{user.password}}</td>
+            <td><img src={{user.img}} width="100px" height="100px"/></td> 
+            <td>{{user.contact}}</td>
+            <td><input type="button" value="Delete User" (click)="deleteUsers(user.id)"></td>
+        </tr>
+    </table>
+</div>
+
