@@ -9,6 +9,7 @@ import { Product } from './product';
 export class ProductService {
 
   baseUrl: string = "http://localhost:3000/products";
+  updateProductId: number = 0;
 
   constructor(public httpClient: HttpClient) { } //DI for HttpClient
 
@@ -17,6 +18,14 @@ export class ProductService {
   }
   deleteProductById(pid: any): Observable<any> {
     return this.httpClient.delete(this.baseUrl + "/" + pid);
+  }
+  storeProduct(product:Product):Observable<any>{
+    return this.httpClient.post(this.baseUrl,product);
+  }
+
+  updateProduct(product:Product):Observable<any>{
+    console.log("In Update Product Service: "+product.id);
+    return this.httpClient.put(this.baseUrl+"/"+product.id,product);
   }
 }
 

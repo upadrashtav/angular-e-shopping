@@ -1,63 +1,164 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
-
+import { FormBuilder, FormGroup, } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Category } from 'src/app/category/category';
+import { CategoryService } from 'src/app/category/category.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit{
-
-  products:Array<Product>=[];
-
-  constructor(public productService:ProductService) {
+export class ProductComponent implements OnInit {
+  products: Array<Product> = [];
+  productForm!: FormGroup;
+  productUpdateForm!: FormGroup;
+  categories: Array<Category> = [];
+  constructor(public productService: ProductService, public formBuilder: FormBuilder, public model: NgbModal,
+    public categoryService: CategoryService) {
 
   }
-
-  ngOnInit():void{
-    this.loadAllProducts()
+  ngOnInit(): void {
+    this.productForm = this.formBuilder.group({
+      title: [""],
+      description: [""],
+      price: [""],
+      discountPercentage: [""],
+      rating: [""],
+      stock: [""],
+      brand: [""],
+      category: [""],
+      thumbnail: [""]
+    });
+    this.categoryService.loadCategory().subscribe({
+      next: (data: any) => {
+        this.categories = data;
+      },
+      error: (error: any) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.log("done")
+      }
+    })
+    this.loadAllProducts();
   }
-
-  loadAllProducts(){
+  loadAllProducts() {
     this.productService.loadAllProductDetails().subscribe({
-      next:(result:any)=>{
-        this.products=result;
+      next: (result: any) => {
+        this.products = result;
       },
-      error:(error:any)=> {
+      error: (error: any) => {
 
       },
-      complete:()=>{
+      complete: () => {
 
       }
     })
-
   }
+  deleteProduct(pid: any) {
+    //console.log(pid);
+    //alert(pid);
+    let flag = confirm("Do you want to delete");
+    if (flag) {
 
-  deleteProduct(pid:any){
-
-    let flag= confirm("Are you sure to Delete(Y/N)?");
-
-    if(flag){
       this.productService.deleteProductById(pid).subscribe({
-        next:(result:any)=>{
-  
+        next: (result: any) => {
+          console.log(result)
         },
-        error:(error:any)=>{
-  
+        error: (error: any) => {
+          console.log(error)
         },
-        complete:()=>{
-          console.log("Product Deleted")
+        complete: () => {
           this.loadAllProducts();
+          console.log("record deteted")
         }
       })
-    }else {
-      alert("Product Was Not Deleted")
+
+    } else {
+      alert("Product id didn't delete")
     }
+
   }
 
-  sortByPrice(){
-    this.products.sort((p1,p2)=>p1.price-p2.price);
+  sortByPrice() {
+    alert("Hi")
+    this.products.sort((p1, p2) => p2.price - p1.price);
+  }
+
+  addProductDetails(addProduct: any): void {
+    this.model.open(addProduct, { size: "lg" });
+  }
+
+  storeProduct() {
+    let product = this.productForm.value;
+    console.log(product);
+    this.productService.storeProduct(product).subscribe({
+      next: (data: any) => {
+        alert("Product stored ");
+        console.log(data);
+      },
+      error: (error: any) => {
+        console.log(error)
+      },
+      complete: () => {
+        this.loadAllProducts();
+      }
+
+    });
+
+    this.productForm.reset();
+  }
+
+  updateProductDetails(updateProduct:any,prod:Product): void {
+    // updateProductDetails(prod:Product):void{
+    this.productForm.get("title")?.setValue(prod.title);
+    this.productForm.get("description")?.setValue(prod.description);
+    this.productForm.get("price")?.setValue(prod.price);
+    this.productForm.get("discountPercentage")?.setValue(prod.discountPercentage);
+    this.productForm.get("rating")?.setValue(prod.rating);
+    this.productForm.get("stock")?.setValue(prod.stock);
+    this.productForm.get("brand")?.setValue(prod.brand);
+    // let product = this.productForm.value;
+    let product = prod;
+    console.log(product);
+    this.model.open(updateProduct, { size: "lg" });
+    this.productService.updateProduct(product).subscribe({
+      next:(data:any)=> {
+          alert("Product updated ");
+          console.log(data);
+      },
+      error:(error:any)=> {
+          console.log(error)
+      },
+      complete:()=> {
+            this.loadAllProducts();
+      }
+
+    });
+
+    this.productForm.reset();
+  }
+
+  updateProduct() {
+    let product = this.productForm.value;
+    console.log(product);
+    // this.productService.updateProduct(product).subscribe({
+    //   next:(data:any)=> {
+    //       alert("Product updated ");
+    //       console.log(data);
+    //   },
+    //   error:(error:any)=> {
+    //       console.log(error)
+    //   },
+    //   complete:()=> {
+    //         this.loadAllProducts();
+    //   }
+
+    // });
+
+    this.productUpdateForm.reset();
   }
 
 }
