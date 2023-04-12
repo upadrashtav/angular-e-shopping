@@ -19,13 +19,13 @@ export class ProductService {
   deleteProductById(pid: any): Observable<any> {
     return this.httpClient.delete(this.baseUrl + "/" + pid);
   }
-  storeProduct(product:Product):Observable<any>{
-    return this.httpClient.post(this.baseUrl,product);
+  storeProduct(product: Product): Observable<any> {
+    return this.httpClient.post(this.baseUrl, product);
   }
 
-  updateProduct(product:Product):Observable<any>{
-    console.log("In Update Product Service: "+product.id);
-    return this.httpClient.put(this.baseUrl+"/"+product.id,product);
+  updateProduct(product: Product): Observable<any> {
+    console.log("In Update Product Service: " + product.id);
+    return this.httpClient.put(this.baseUrl + "/" + product.id, product);
   }
 }
 

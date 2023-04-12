@@ -15,12 +15,26 @@ export class ProductComponent implements OnInit {
   productForm!: FormGroup;
   productUpdateForm!: FormGroup;
   categories: Array<Category> = [];
+  id = 0;
+
   constructor(public productService: ProductService, public formBuilder: FormBuilder, public model: NgbModal,
     public categoryService: CategoryService) {
 
   }
+
   ngOnInit(): void {
     this.productForm = this.formBuilder.group({
+      title: [""],
+      description: [""],
+      price: [""],
+      discountPercentage: [""],
+      rating: [""],
+      stock: [""],
+      brand: [""],
+      category: [""],
+      thumbnail: [""]
+    });
+    this.productUpdateForm = this.formBuilder.group({
       title: [""],
       description: [""],
       price: [""],
@@ -44,6 +58,7 @@ export class ProductComponent implements OnInit {
     })
     this.loadAllProducts();
   }
+
   loadAllProducts() {
     this.productService.loadAllProductDetails().subscribe({
       next: (result: any) => {
@@ -57,6 +72,7 @@ export class ProductComponent implements OnInit {
       }
     })
   }
+
   deleteProduct(pid: any) {
     //console.log(pid);
     //alert(pid);
@@ -111,54 +127,42 @@ export class ProductComponent implements OnInit {
     this.productForm.reset();
   }
 
-  updateProductDetails(updateProduct:any,prod:Product): void {
-    // updateProductDetails(prod:Product):void{
-    this.productForm.get("title")?.setValue(prod.title);
-    this.productForm.get("description")?.setValue(prod.description);
-    this.productForm.get("price")?.setValue(prod.price);
-    this.productForm.get("discountPercentage")?.setValue(prod.discountPercentage);
-    this.productForm.get("rating")?.setValue(prod.rating);
-    this.productForm.get("stock")?.setValue(prod.stock);
-    this.productForm.get("brand")?.setValue(prod.brand);
-    // let product = this.productForm.value;
+  showUpdateProdcutModal(updateProduct: any, prod: Product): void {
+
+    this.id = prod.id;
+    this.productUpdateForm.get("title")?.setValue(prod.title);
+    this.productUpdateForm.get("description")?.setValue(prod.description);
+    this.productUpdateForm.get("price")?.setValue(prod.price);
+    this.productUpdateForm.get("discountPercentage")?.setValue(prod.discountPercentage);
+    this.productUpdateForm.get("rating")?.setValue(prod.rating);
+    this.productUpdateForm.get("stock")?.setValue(prod.stock);
+    this.productUpdateForm.get("brand")?.setValue(prod.brand);
+
     let product = prod;
     console.log(product);
     this.model.open(updateProduct, { size: "lg" });
+  }
+
+  updateProductDetail() {
+    let product = this.productUpdateForm.value;
+    product.id = this.id;
+    console.log(product);
     this.productService.updateProduct(product).subscribe({
-      next:(data:any)=> {
-          alert("Product updated ");
-          console.log(data);
+      next: (data: any) => {
+        alert("Product updated ");
+        console.log(data);
       },
-      error:(error:any)=> {
-          console.log(error)
+      error: (error: any) => {
+        console.log(error)
       },
-      complete:()=> {
-            this.loadAllProducts();
+      complete: () => {
+        this.loadAllProducts();
       }
 
     });
 
-    this.productForm.reset();
-  }
-
-  updateProduct() {
-    let product = this.productForm.value;
-    console.log(product);
-    // this.productService.updateProduct(product).subscribe({
-    //   next:(data:any)=> {
-    //       alert("Product updated ");
-    //       console.log(data);
-    //   },
-    //   error:(error:any)=> {
-    //       console.log(error)
-    //   },
-    //   complete:()=> {
-    //         this.loadAllProducts();
-    //   }
-
-    // });
-
     this.productUpdateForm.reset();
+    this.model.dismissAll();
   }
 
 }
