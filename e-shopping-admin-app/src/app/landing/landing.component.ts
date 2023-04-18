@@ -1,24 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+  styleUrls: ['./landing.component.css'],
 })
-export class LandingComponent implements OnInit{
+export class LandingComponent implements OnInit {
 
-  flag!:boolean;
-  constructor(public authService:AuthService){
+  flag!: boolean;
+  pathCheck = false;
 
-
+  constructor(public authService: AuthService, private cdr: ChangeDetectorRef) {
   }
-  ngOnInit():void {
+
+  ngOnInit(): void {
     this.authService.isLoggedIn.subscribe({
-      next:(result:any)=> {
-        this.flag=result;
+      next: (result: any) => {
+        console.log('login check ===', result);
+        this.flag = result;
       }
     })
+
+  }
+
+  ngAfterViewChecked() {
+    if (window.location.pathname === '/home') {
+      this.pathCheck = true;
+    } else {
+      this.pathCheck = false;
+    }
+    console.log('pathCheck ===', this.pathCheck);
+    this.cdr.detectChanges();
   }
 
 }

@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoryComponent } from './category/category/category.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersComponent } from './users/users/users.component';
+import { EstoretextComponent } from './estoretext/estoretext.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { UsersComponent } from './users/users/users.component';
     LogoutComponent,
     ProductComponent,
     CategoryComponent,
-    UsersComponent
+    UsersComponent,
+    EstoretextComponent
   ],
   imports: [
     BrowserModule,

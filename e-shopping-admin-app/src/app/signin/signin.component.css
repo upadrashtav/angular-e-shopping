@@ -1,0 +1,69 @@
+.nav-link{
+    display:inline;
+}
+
+button.btn-block{
+    width: 100%;
+}
+
+button.btn-block{
+    width: 100%;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5{
+  margin-top: 102px;
+  margin-right: 200px;
+  margin-bottom: 05px;
+  text-align: left;
+}
+
+p {
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  margin: 82px auto 32px;
+  padding: 0 16px;
+  max-width: 960px;
+  flex-direction: column;
+  align-items: center;
+}
+
+body {
+  color: white;
+}
+
+#outerbox {
+  display:block;
+  border: 5px solid;
+  margin-top: 150px;
+  padding: 0px;
+}
+
+#applogin {
+ /* border-style: solid;*/
+  margin-top: 50px;
+  margin-right: 50px;
+  margin-bottom: 05px;
+  padding: 50px;
+  text-align: center;
+
+}
+
+#storetext {
+  /* border-style: solid; */
+  height: 560px;
+  width: 1000px;
+  background-color: lightblue;
+  margin-top: 1px;
+  margin-right: 50px;
+  margin-bottom: 0px;
+  padding: 70px;
+  text-align: left;
+}

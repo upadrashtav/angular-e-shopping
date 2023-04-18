@@ -12,18 +12,19 @@ import { UsersComponent } from './users/users/users.component';
 // we have to write navigation rules 
 // http://localhost:4200/aboutus
 const routes: Routes = [
-{path:"aboutus",component:AboutusComponent},
-{path:"contactus",component:ContactusComponent},
-{path:"login",component:SigninComponent},
-
-
-{path:"home",component:DashboardComponent,canActivate:[AuthGuard],children:[
-  {path:"product",component:ProductComponent},  
-  {path:"category",component:CategoryComponent},
-  {path: "users", component:UsersComponent},
-  {path:"logout",component:LogoutComponent}
-]}
-
+  { path: "aboutus", component: AboutusComponent },
+  { path: "contactus", component: ContactusComponent },
+  { path: "login", component: SigninComponent },
+  {
+    path: "home", component: DashboardComponent, canActivate: [AuthGuard], children: [
+      { path: "product", component: ProductComponent },
+      { path: "category", component: CategoryComponent },
+      { path: "users", component: UsersComponent },
+      { path: "logout", component: LogoutComponent },
+      { path: '', component: DashboardComponent }
+    ]
+  },
+  { path: '', redirectTo: AuthGuard ? 'home' : 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

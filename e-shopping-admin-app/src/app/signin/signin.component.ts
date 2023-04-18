@@ -27,6 +27,7 @@ export class SigninComponent implements OnInit{
     if(this.authService.signIn(login)){
       alert("Successfully login")
       sessionStorage.setItem("admin",login.emailid);
+      // this.loginRef.  TO DO:  Need to clear the login page before navigating to the home page.  Need Help
       this.router.navigate(["home"])
     } else {
       alert ("failure try once again")

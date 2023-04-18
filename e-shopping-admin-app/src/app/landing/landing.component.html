@@ -1,21 +1,48 @@
 <div>
-
-    <h2>E - Shopping Admin App</h2>
-    <div>
-        <div *ngIf="!flag;else temp;">
-            <a routerLink="aboutus">About Us</a> |
-            <a routerLink="contactus">Contact Us</a> |
-            <a routerLink="login">Login</a> |
-        </div>   
-        <ng-template #temp>
-            <a routerLink="/home/product">Product Details</a> |
-            <a routerLink="/home/category">Category Details</a>|
-            <a routerLink="/home/users">Customer Details</a> |
-            <a routerLink="/home/logout">Logout</a>
-        </ng-template>
-            
-
-    </div>
-    <router-outlet></router-outlet>
+    <header>
+        <!-- <h2>E - Commerce Store</h2> -->
+        <div>
+            <div *ngIf="!flag;else temp;">
+                <a>E-COMMERCE STORE &nbsp </a>
+                <a routerLink="aboutus">About Us</a> |
+                <a routerLink="contactus">Contact Us</a> |
+                <a routerLink="login">Login</a> |
+            </div>
+            <div>
+                <ng-template #temp>
+                    <a>E-COMMERCE STORE </a>
+                    <a routerLink="/home/product">Product Details</a> |
+                    <a routerLink="/home/category">Category Details</a>|
+                    <a routerLink="/home/users">Customer Details</a> |
+                    <a routerLink="/home/logout">Logout</a>
+                </ng-template>
+            </div>
+        </div>
+    </header>
 
 </div>
+    <div class="container">
+        <div class="container-fluid text-center" [attr.id]="!pathCheck ? 'outerbox' : 'outer'">
+            <div class="container-fluid text-center">
+                <div class="row">
+                    <div *ngIf="!flag" class="col" id="storetext">
+                        <app-estoretext></app-estoretext>
+                    </div>
+                    <div class="col" id="content">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="container">
+            <div class="container">Footer</div>
+        </div>
+    </footer>
+
+    <!-- <router-outlet></router-outlet> -->
+
+<!-- </div> -->
